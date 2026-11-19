@@ -3,7 +3,7 @@ const { updateById } = require('../utils/sql');
 
 exports.create = async (v) => {
   const [r] = await pool.query(
-    'INSERT INTO vendors (vendor_name, phone_number, location, latitude, longitude) VALUES (?,?,?,?,?)',
+    'INSERT INTO vendors (vendor_name, phone_number, location, latitude, longitude, registration_date) VALUES (?,?,?,?,?,CURDATE())',
     [v.vendor_name, v.phone_number, v.location, v.latitude ?? null, v.longitude ?? null]);
   return r.insertId;
 };
@@ -35,4 +35,4 @@ exports.unpaidSales = async (id) =>
     `SELECT s.sale_id, s.sale_date, s.total_amount, s.payment_status,
             s.total_amount - COALESCE(SUM(pm.amount),0) AS outstanding
      FROM sales s LEFT JOIN payments pm ON pm.sale_id = s.sale_id
-     WHERE s.vendor_id = ? GROUP BY s.sale_id HAVING outstanding > 0 ORDER BY s.sale_date`, [id]))[0];
+     WHERE s.vendor_id = ? GROUP BY s.sale_id, s.sale_date, s.total_amount, s.payment_status HAVING outstanding > 0 ORDER BY s.sale_date`, [id]))[0];

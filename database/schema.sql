@@ -33,7 +33,7 @@ CREATE TABLE vendors (
   location          VARCHAR(255) NOT NULL,
   latitude          DECIMAL(10,7) NULL,
   longitude         DECIMAL(10,7) NULL,
-  registration_date DATE NOT NULL DEFAULT (CURRENT_DATE),
+  registration_date DATE NOT NULL,
   CONSTRAINT uq_vendor_phone UNIQUE (phone_number)
 ) ENGINE=InnoDB;
 

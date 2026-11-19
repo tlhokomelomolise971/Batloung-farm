@@ -13,6 +13,9 @@ const pool = mysql.createPool({
   connectionLimit: Number(process.env.DB_CONNECTION_LIMIT) || 10,
   connectTimeout: 10000,
   decimalNumbers: true, // DECIMAL columns come back as numbers
+  enableKeepAlive: true,
+  // Cloud databases (TiDB Cloud, etc.) need an encrypted connection: set DB_SSL=true
+  ssl: process.env.DB_SSL === 'true' ? { minVersion: 'TLSv1.2', rejectUnauthorized: true } : undefined,
   dateStrings: true,
 });
 
