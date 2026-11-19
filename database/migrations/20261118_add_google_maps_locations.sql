@@ -1,0 +1,10 @@
+USE batloung_farm_db;
+
+ALTER TABLE suppliers
+  ADD COLUMN latitude DECIMAL(10,7) NULL,
+  ADD COLUMN longitude DECIMAL(10,7) NULL;
+
+ALTER TABLE vendors
+  MODIFY COLUMN location VARCHAR(255) NOT NULL,
+  ADD COLUMN latitude DECIMAL(10,7) NULL,
+  ADD COLUMN longitude DECIMAL(10,7) NULL;
