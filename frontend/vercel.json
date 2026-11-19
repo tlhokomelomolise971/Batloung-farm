@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://batloung-farm-kylz.onrender.com/api/:path*" },
+    { "source": "/health", "destination": "https://batloung-farm-kylz.onrender.com/health" }
+  ]
+}
